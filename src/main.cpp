@@ -1,13 +1,17 @@
 #include "raylib.h"
+#include "grid.h"
 
 
 int main(){
 
-    InitWindow(800, 800, "Raylib Sample");
+    Color darkBlue = {44,44,127,60}; // Color is a struct here
+    InitWindow(300, 600, "Raylib Sample");
     SetTargetFPS(60);
 
-    Color darkBlue = {44,44,127,60};
 
+    Grid grid = Grid();
+
+    grid.print();
 
 
     while(!WindowShouldClose()){
@@ -16,9 +20,7 @@ int main(){
 
         ClearBackground(darkBlue);
 
-
         EndDrawing();
-
 
 
 
