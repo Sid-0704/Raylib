@@ -1,5 +1,6 @@
 #include <iostream>
 #include "grid.h"
+#include "colors.h"
 using namespace std;
     
 
@@ -41,19 +42,7 @@ void Grid::print(){
 }
 
 
-vector<Color> Grid::getCellColours(){
-    Color first_colour = {26,31,40,255};
-    Color second_colour = {47,230,23,255};
-    Color third_colour = {232,18,18,255};
-    Color fourth_colour = {226,116,17,255};
-    Color fifth_colour = {237,234,4,255};
-    Color sixth_colour = {166,0,247,255};
-    Color seventh_colour = {21,204,209,255};
-    Color eighth_colour = {13,64,216,255};
-// all 8 colours defined above
 
-    return {first_colour, second_colour, third_colour, fourth_colour, fifth_colour, sixth_colour, seventh_colour, eighth_colour};
-}
 
 
 void Grid::draw(){

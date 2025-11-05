@@ -11,7 +11,6 @@ class Grid{
         int numRows;
         int numCols;
         int cellSize;
-        vector<Color> getCellColours();
 
     public:
         Grid(); // constructor
