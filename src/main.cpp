@@ -1,6 +1,5 @@
 #include "raylib.h"
-#include "grid.h"
-#include "blocks.cpp"
+#include "game.h"
 
 
 int main(){
@@ -10,22 +9,17 @@ int main(){
     SetTargetFPS(60);
 
 
-    Grid grid = Grid();
-
-    LBlock block = LBlock();
-
-
-    grid.print();
+    Game game = Game();
 
 
     while(!WindowShouldClose()){
 
+        game.handleInput();
         BeginDrawing();
- 
+        
         ClearBackground(darkBlue);
+        game.Draw();
 
-        grid.draw();
-        block.Draw();
 
         EndDrawing();
 

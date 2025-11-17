@@ -21,6 +21,7 @@ class Grid{
         void print();
         void initialize();
         int grid[20][10];
+        bool isCellOutside(int row, int col);
 
 
 
