@@ -8,7 +8,7 @@ Game::Game(){
     blocks = getAllBlocks();
     currentBlock =getRandomBlock();
     nextBlock = getRandomBlock();
-
+    gameOver =false;
 
 }
 
@@ -55,24 +55,33 @@ void Game::handleInput(){
 }
 
 void Game::moveBlockLeft(){
-    currentBlock.move(0,-1);
-    if(isBlockOutside() || blockFits() ==false){
-        currentBlock.move(0,1);
+    if(!gameOver){
+
+        currentBlock.move(0,-1);
+        if(isBlockOutside() || blockFits() ==false){
+            currentBlock.move(0,1);
+        }
     }
 }
 
 void Game::moveBlockRight(){
-    currentBlock.move(0,1);
-    if(isBlockOutside() || blockFits()==false ){
-        currentBlock.move(0,-1);
+    if(!gameOver){
+
+        currentBlock.move(0,1);
+        if(isBlockOutside() || blockFits()==false ){
+            currentBlock.move(0,-1);
+        }
     }
 }
 
 void Game::moveBlockDown(){
-    currentBlock.move(1,0);
-    if(isBlockOutside() || blockFits() == false){
-        currentBlock.move(-1,0);
-        lockTheBlock();
+    if(!gameOver){
+
+        currentBlock.move(1,0);
+        if(isBlockOutside() || blockFits() == false){
+            currentBlock.move(-1,0);
+            lockTheBlock();
+        }
     }
 }
 
@@ -91,9 +100,12 @@ bool Game::isBlockOutside(){
 
 
 void Game::rotateBlock(){
-    currentBlock.rotate();
-    if(isBlockOutside() || blockFits()==false){
-        currentBlock.undoRotation();
+    if(!gameOver){
+
+        currentBlock.rotate();
+        if(isBlockOutside() || blockFits()==false){
+            currentBlock.undoRotation();
+        }
     }
 
 }
@@ -113,6 +125,10 @@ void Game::lockTheBlock(){
     for(Position item: tiles){
         grid.grid[item.row][item.column] = currentBlock.id;
     }
+    if(blockFits() ==false){
+        gameOver=true;
+    }
+
     currentBlock = nextBlock;
     nextBlock = getRandomBlock();
     grid.clearFullRows();

@@ -14,6 +14,7 @@ class Game{
         void moveBlockRight();
         void moveBlockDown();
         Grid grid;
+        bool gameOver;
 
 
     private:

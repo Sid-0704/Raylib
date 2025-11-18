@@ -26,7 +26,7 @@ int main(){
     while(!WindowShouldClose()){
                                                               
         game.handleInput();
-        if(eventTriggered(0.5)){
+        if(eventTriggered(0.02)){
             game.moveBlockDown();
         }
         BeginDrawing();
