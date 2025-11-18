@@ -15,8 +15,12 @@ class Game{
         void moveBlockDown();
         Grid grid;
 
+
     private:
-        bool isCellOutside();
+        bool isBlockOutside();
+        void lockTheBlock();
+        void rotateBlock();
+        bool blockFits();
         std::vector<Block> blocks;
         Block currentBlock;
         Block nextBlock;

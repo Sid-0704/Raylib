@@ -1,4 +1,5 @@
 #include "game.h"
+// #include "block.h"
 
 #include <random>
 
@@ -46,42 +47,74 @@ void Game::handleInput(){
         case KEY_DOWN:
             moveBlockDown();
             break;
+        
+        case KEY_UP:
+            rotateBlock();
+            break;
     }
 }
 
 void Game::moveBlockLeft(){
     currentBlock.move(0,-1);
-    if(isCellOutside()){
+    if(isBlockOutside() || blockFits() ==false){
         currentBlock.move(0,1);
     }
 }
 
 void Game::moveBlockRight(){
     currentBlock.move(0,1);
-    if(isCellOutside()){
+    if(isBlockOutside() || blockFits()==false ){
         currentBlock.move(0,-1);
     }
 }
 
 void Game::moveBlockDown(){
     currentBlock.move(1,0);
-    if(isCellOutside()){
+    if(isBlockOutside() || blockFits() == false){
         currentBlock.move(-1,0);
+        lockTheBlock();
     }
 }
 
-bool Game::isCellOutside()
-{
+
+
+bool Game::isBlockOutside(){
     std::vector<Position> tiles = currentBlock.getCellPositions();
+
     for(Position items : tiles){
         if(grid.isCellOutside(items.row, items.column)){
             return true;
-        }
-        
-        
+        }    
     }
     return false;
+}
 
 
+void Game::rotateBlock(){
+    currentBlock.rotate();
+    if(isBlockOutside() || blockFits()==false){
+        currentBlock.undoRotation();
+    }
+
+}
+
+bool Game::blockFits(){
+    std::vector<Position> tiles =currentBlock.getCellPositions();
+    for (Position items: tiles){
+        if(grid.isCellEmpty(items.row, items.column) == false ){
+            return false;
+        }
+    }
+    return true;
+}
+
+void Game::lockTheBlock(){
+    std::vector<Position> tiles = currentBlock.getCellPositions();
+    for(Position item: tiles){
+        grid.grid[item.row][item.column] = currentBlock.id;
+    }
+    currentBlock = nextBlock;
+    nextBlock = getRandomBlock();
+    grid.clearFullRows();
 
 }

@@ -12,6 +12,7 @@ class Block{
         void move(int rows, int cols);
         std::vector<Position> getCellPositions();
         void rotate();
+        void undoRotation();
         int id;
         std::map<int, std::vector<Position>> cells;
 
