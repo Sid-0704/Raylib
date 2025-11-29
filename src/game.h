@@ -1,6 +1,6 @@
 #pragma once
 #include "grid.h"
-#include "blocks.cpp"
+#include "blocks.h"
 
 
 class Game{
@@ -22,6 +22,7 @@ class Game{
         void lockTheBlock();
         void rotateBlock();
         bool blockFits();
+        void Reset();
         std::vector<Block> blocks;
         Block currentBlock;
         Block nextBlock;

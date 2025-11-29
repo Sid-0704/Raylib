@@ -15,6 +15,8 @@ using namespace std;
 
 
 vector<Color> getCellColours(){
-    return {darkGrey, green, orange, yellow, purple, cyan, blue};
+    // Ensure the returned vector has an entry for every cell id used by blocks
+    // Index 0 = darkGrey (empty), 1..7 = block colours in same order as ids
+    return {darkGrey, green, red, orange, yellow, purple, cyan, blue};
 
 }

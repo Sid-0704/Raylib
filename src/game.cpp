@@ -18,7 +18,7 @@ Block Game::getRandomBlock(){
         blocks =getAllBlocks();
     }
 
-    int randomIndex = rand() %blocks.size();
+    int randomIndex = rand() % blocks.size();
     Block block = blocks[randomIndex];
     blocks.erase(blocks.begin() + randomIndex);
     return block;
@@ -36,11 +36,16 @@ void Game::Draw(){
 
 void Game::handleInput(){
     int keyPressed = GetKeyPressed();
+    if(gameOver && keyPressed!=0){
+        gameOver=false;
+        Reset();
+    }
+
     switch (keyPressed){
         case KEY_LEFT:
             moveBlockLeft();
             break;
-        case KEY_RIGHT:
+        case KEY_RIGHT:   
             moveBlockRight();
             break;
     
@@ -120,17 +125,32 @@ bool Game::blockFits(){
     return true;
 }
 
+void Game::Reset(){
+    grid.initialize();
+    blocks=getAllBlocks();
+    currentBlock = getRandomBlock();
+    nextBlock =getRandomBlock();
+
+}
+
 void Game::lockTheBlock(){
     std::vector<Position> tiles = currentBlock.getCellPositions();
     for(Position item: tiles){
-        grid.grid[item.row][item.column] = currentBlock.id;
-    }
-    if(blockFits() ==false){
-        gameOver=true;
+        // guard against accidental out-of-bounds writes
+        if(!grid.isCellOutside(item.row, item.column)){
+            grid.grid[item.row][item.column] = currentBlock.id;
+        }
     }
 
+    // Move to next block first, then check if the new current block fits —
+    // if it doesn't, the game is over.
     currentBlock = nextBlock;
     nextBlock = getRandomBlock();
+
+    if(blockFits() == false){
+        gameOver = true;
+    }
+
     grid.clearFullRows();
 
 }

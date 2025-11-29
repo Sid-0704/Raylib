@@ -36,7 +36,11 @@ bool Grid::isCellOutside(int row, int col){
 }
 
 bool Grid::isCellEmpty(int row, int col){
-    if(grid[row][col] ==0){
+    // Treat any cell outside the grid as non-empty to prevent out-of-bounds access
+    if(isCellOutside(row, col)){
+        return false;
+    }
+    if(grid[row][col] == 0){
         return true;
     }
     return false;

@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "game.h"
+#include <iostream>
 
 double lastUpdateTime =0;
 bool eventTriggered(double interval){
@@ -26,8 +27,13 @@ int main(){
     while(!WindowShouldClose()){
                                                               
         game.handleInput();
-        if(eventTriggered(0.02)){
+        if(eventTriggered(0.2)){
             game.moveBlockDown();
+        }
+        static int __frames = 0;
+        __frames++;
+        if(__frames % 60 == 0){
+            std::cout << "frame: " << __frames << std::endl;
         }
         BeginDrawing();
         
